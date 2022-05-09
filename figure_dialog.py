@@ -13,11 +13,12 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
+
 class Ui_figure_properity_dialog(object):
     def setupUi(self, figure_properity_dialog):
         if not figure_properity_dialog.objectName():
             figure_properity_dialog.setObjectName(u"figure_properity_dialog")
-        figure_properity_dialog.resize(340, 143)
+        figure_properity_dialog.resize(344, 142)
         self.widget = QWidget(figure_properity_dialog)
         self.widget.setObjectName(u"widget")
         self.widget.setGeometry(QRect(10, 10, 324, 81))
@@ -37,7 +38,6 @@ class Ui_figure_properity_dialog(object):
         self.max_textbox.setObjectName(u"max_textbox")
         font = QFont()
         font.setPointSize(13)
-        font.setBold(False)
         self.max_textbox.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.max_textbox)
@@ -54,9 +54,7 @@ class Ui_figure_properity_dialog(object):
 
         self.min_textbox = QTextEdit(self.widget)
         self.min_textbox.setObjectName(u"min_textbox")
-        font1 = QFont()
-        font1.setPointSize(13)
-        self.min_textbox.setFont(font1)
+        self.min_textbox.setFont(font)
 
         self.horizontalLayout.addWidget(self.min_textbox)
 
@@ -77,9 +75,9 @@ class Ui_figure_properity_dialog(object):
 
         self.figure_name_textbox = QTextEdit(self.widget)
         self.figure_name_textbox.setObjectName(u"figure_name_textbox")
-        font2 = QFont()
-        font2.setPointSize(11)
-        self.figure_name_textbox.setFont(font2)
+        font1 = QFont()
+        font1.setPointSize(11)
+        self.figure_name_textbox.setFont(font1)
 
         self.horizontalLayout_4.addWidget(self.figure_name_textbox)
 
@@ -95,7 +93,7 @@ class Ui_figure_properity_dialog(object):
 
         self.function_textbox = QTextEdit(self.widget)
         self.function_textbox.setObjectName(u"function_textbox")
-        self.function_textbox.setFont(font2)
+        self.function_textbox.setFont(font1)
 
         self.horizontalLayout_3.addWidget(self.function_textbox)
 
@@ -107,7 +105,7 @@ class Ui_figure_properity_dialog(object):
 
         self.widget1 = QWidget(figure_properity_dialog)
         self.widget1.setObjectName(u"widget1")
-        self.widget1.setGeometry(QRect(50, 110, 221, 24))
+        self.widget1.setGeometry(QRect(60, 110, 221, 24))
         self.horizontalLayout_6 = QHBoxLayout(self.widget1)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
@@ -134,15 +132,14 @@ class Ui_figure_properity_dialog(object):
     def retranslateUi(self, figure_properity_dialog):
         figure_properity_dialog.setWindowTitle(QCoreApplication.translate("figure_properity_dialog", u"Figure properity", None))
         self.label_3.setText(QCoreApplication.translate("figure_properity_dialog", u"Max", None))
-        self.max_textbox.setHtml(QCoreApplication.translate("figure_properity_dialog", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Sans Serif'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.label_4.setText(QCoreApplication.translate("figure_properity_dialog", u"Min", None))
         self.label.setText(QCoreApplication.translate("figure_properity_dialog", u"Figure name", None))
         self.label_2.setText(QCoreApplication.translate("figure_properity_dialog", u"Function", None))
         self.ok_button.setText(QCoreApplication.translate("figure_properity_dialog", u"OK", None))
         self.cancel_button.setText(QCoreApplication.translate("figure_properity_dialog", u"Cancel", None))
+        # setting alignment to be center
+        self.max_textbox.setAlignment(Qt.AlignCenter)
+        self.min_textbox.setAlignment(Qt.AlignCenter)
+
     # retranslateUi
 
