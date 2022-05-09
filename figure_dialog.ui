@@ -35,7 +35,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit">
+         <widget class="QTextEdit" name="max_textbox">
           <property name="font">
            <font>
             <pointsize>13</pointsize>
@@ -63,7 +63,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit_2">
+         <widget class="QTextEdit" name="min_textbox">
           <property name="font">
            <font>
             <pointsize>13</pointsize>
@@ -87,7 +87,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit_3">
+         <widget class="QTextEdit" name="figure_name_textbox">
           <property name="font">
            <font>
             <pointsize>11</pointsize>
@@ -107,7 +107,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit_4">
+         <widget class="QTextEdit" name="function_textbox">
           <property name="font">
            <font>
             <pointsize>11</pointsize>
@@ -132,7 +132,7 @@ p, li { white-space: pre-wrap; }
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_6">
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="ok_button">
       <property name="text">
        <string>OK</string>
       </property>
@@ -152,7 +152,7 @@ p, li { white-space: pre-wrap; }
      </spacer>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="cancel_button">
       <property name="text">
        <string>Cancel</string>
       </property>

@@ -33,14 +33,14 @@ class Ui_figure_properity_dialog(object):
 
         self.horizontalLayout_2.addWidget(self.label_3)
 
-        self.textEdit = QTextEdit(self.widget)
-        self.textEdit.setObjectName(u"textEdit")
+        self.max_textbox = QTextEdit(self.widget)
+        self.max_textbox.setObjectName(u"max_textbox")
         font = QFont()
         font.setPointSize(13)
         font.setBold(False)
-        self.textEdit.setFont(font)
+        self.max_textbox.setFont(font)
 
-        self.horizontalLayout_2.addWidget(self.textEdit)
+        self.horizontalLayout_2.addWidget(self.max_textbox)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -52,13 +52,13 @@ class Ui_figure_properity_dialog(object):
 
         self.horizontalLayout.addWidget(self.label_4)
 
-        self.textEdit_2 = QTextEdit(self.widget)
-        self.textEdit_2.setObjectName(u"textEdit_2")
+        self.min_textbox = QTextEdit(self.widget)
+        self.min_textbox.setObjectName(u"min_textbox")
         font1 = QFont()
         font1.setPointSize(13)
-        self.textEdit_2.setFont(font1)
+        self.min_textbox.setFont(font1)
 
-        self.horizontalLayout.addWidget(self.textEdit_2)
+        self.horizontalLayout.addWidget(self.min_textbox)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -75,13 +75,13 @@ class Ui_figure_properity_dialog(object):
 
         self.horizontalLayout_4.addWidget(self.label)
 
-        self.textEdit_3 = QTextEdit(self.widget)
-        self.textEdit_3.setObjectName(u"textEdit_3")
+        self.figure_name_textbox = QTextEdit(self.widget)
+        self.figure_name_textbox.setObjectName(u"figure_name_textbox")
         font2 = QFont()
         font2.setPointSize(11)
-        self.textEdit_3.setFont(font2)
+        self.figure_name_textbox.setFont(font2)
 
-        self.horizontalLayout_4.addWidget(self.textEdit_3)
+        self.horizontalLayout_4.addWidget(self.figure_name_textbox)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_4)
@@ -93,11 +93,11 @@ class Ui_figure_properity_dialog(object):
 
         self.horizontalLayout_3.addWidget(self.label_2)
 
-        self.textEdit_4 = QTextEdit(self.widget)
-        self.textEdit_4.setObjectName(u"textEdit_4")
-        self.textEdit_4.setFont(font2)
+        self.function_textbox = QTextEdit(self.widget)
+        self.function_textbox.setObjectName(u"function_textbox")
+        self.function_textbox.setFont(font2)
 
-        self.horizontalLayout_3.addWidget(self.textEdit_4)
+        self.horizontalLayout_3.addWidget(self.function_textbox)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
@@ -111,19 +111,19 @@ class Ui_figure_properity_dialog(object):
         self.horizontalLayout_6 = QHBoxLayout(self.widget1)
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.pushButton = QPushButton(self.widget1)
-        self.pushButton.setObjectName(u"pushButton")
+        self.ok_button = QPushButton(self.widget1)
+        self.ok_button.setObjectName(u"ok_button")
 
-        self.horizontalLayout_6.addWidget(self.pushButton)
+        self.horizontalLayout_6.addWidget(self.ok_button)
 
         self.horizontalSpacer = QSpacerItem(30, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout_6.addItem(self.horizontalSpacer)
 
-        self.pushButton_2 = QPushButton(self.widget1)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.cancel_button = QPushButton(self.widget1)
+        self.cancel_button.setObjectName(u"cancel_button")
 
-        self.horizontalLayout_6.addWidget(self.pushButton_2)
+        self.horizontalLayout_6.addWidget(self.cancel_button)
 
 
         self.retranslateUi(figure_properity_dialog)
@@ -134,7 +134,7 @@ class Ui_figure_properity_dialog(object):
     def retranslateUi(self, figure_properity_dialog):
         figure_properity_dialog.setWindowTitle(QCoreApplication.translate("figure_properity_dialog", u"Figure properity", None))
         self.label_3.setText(QCoreApplication.translate("figure_properity_dialog", u"Max", None))
-        self.textEdit.setHtml(QCoreApplication.translate("figure_properity_dialog", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.max_textbox.setHtml(QCoreApplication.translate("figure_properity_dialog", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Sans Serif'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
@@ -142,7 +142,7 @@ class Ui_figure_properity_dialog(object):
         self.label_4.setText(QCoreApplication.translate("figure_properity_dialog", u"Min", None))
         self.label.setText(QCoreApplication.translate("figure_properity_dialog", u"Figure name", None))
         self.label_2.setText(QCoreApplication.translate("figure_properity_dialog", u"Function", None))
-        self.pushButton.setText(QCoreApplication.translate("figure_properity_dialog", u"OK", None))
-        self.pushButton_2.setText(QCoreApplication.translate("figure_properity_dialog", u"Cancel", None))
+        self.ok_button.setText(QCoreApplication.translate("figure_properity_dialog", u"OK", None))
+        self.cancel_button.setText(QCoreApplication.translate("figure_properity_dialog", u"Cancel", None))
     # retranslateUi
 
