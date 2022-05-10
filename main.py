@@ -1,24 +1,27 @@
 import sys
-from PySide2 import QtCore, QtWidgets, QtGui, QtUiTools
-from mainwindow import Ui_main_window
-from figure_dialog import Ui_figure_properity_dialog
 
-class MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
-        super(MainWindow, self).__init__()
-        self.ui = Ui_main_window()
-        self.ui.setupUi(self)
+from Figure import Figure
+from figure_item import FigureItem
+from mainwindow import MainWindow
 
-class FigureDialog(QtWidgets.QDialog):
-    def __init__(self):
-        super().__init__()
-        self.ui = Ui_figure_properity_dialog()
-        self.ui.setupUi(self)
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
+
+
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication()
+    app = QApplication()
     mainWindow = MainWindow()
+    for i in range(10):
+        widg = FigureItem(Figure('a' , 'sd' , 23 ,23 ))
+
+        itemList = QListWidgetItem(mainWindow.figure_list)
+        itemList.setSizeHint(widg.sizeHint())
+        mainWindow.figure_list.addItem(itemList)
+        mainWindow.figure_list.setItemWidget(itemList, widg)
+
     mainWindow.show()
-    pop = FigureDialog()
-    pop.show()
+
+
     sys.exit(app.exec_())

@@ -11,18 +11,24 @@
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
+from figure_dialog import FigureDialog
 
 
-class Ui_main_window(object):
-    def setupUi(self, main_window):
-        if not main_window.objectName():
-            main_window.setObjectName(u"main_window")
-        main_window.resize(1037, 605)
-        self.action_open_state = QAction(main_window)
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi()
+
+
+    def setupUi(self):
+        if not self.objectName():
+            self.setObjectName(u"main_window")
+        self.resize(1037, 605)
+        self.action_open_state = QAction(self)
         self.action_open_state.setObjectName(u"action_open_state")
-        self.action_save_State_As = QAction(main_window)
+        self.action_save_State_As = QAction(self)
         self.action_save_State_As.setObjectName(u"action_save_State_As")
-        self.centralwidget = QWidget(main_window)
+        self.centralwidget = QWidget(self)
         self.centralwidget.setObjectName(u"centralwidget")
         self.splitter = QSplitter(self.centralwidget)
         self.splitter.setObjectName(u"splitter")
@@ -63,32 +69,37 @@ class Ui_main_window(object):
         self.drawing_area.setSizePolicy(sizePolicy)
         self.drawing_area.setStyleSheet(u"background-color: rgb(7, 7, 7);")
         self.splitter.addWidget(self.drawing_area)
-        main_window.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(main_window)
+        self.setCentralWidget(self.centralwidget)
+        self.menubar = QMenuBar(self)
         self.menubar.setObjectName(u"menubar")
         self.menubar.setGeometry(QRect(0, 0, 1037, 19))
         self.menuFile = QMenu(self.menubar)
         self.menuFile.setObjectName(u"menuFile")
-        main_window.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(main_window)
+        self.setMenuBar(self.menubar)
+        self.statusbar = QStatusBar(self)
         self.statusbar.setObjectName(u"statusbar")
-        main_window.setStatusBar(self.statusbar)
+        self.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menuFile.menuAction())
         self.menuFile.addAction(self.action_open_state)
         self.menuFile.addAction(self.action_save_State_As)
 
-        self.retranslateUi(main_window)
+        self.retranslateUi()
 
-        QMetaObject.connectSlotsByName(main_window)
+        QMetaObject.connectSlotsByName(self)
     # setupUi
 
-    def retranslateUi(self, main_window):
-        main_window.setWindowTitle(QCoreApplication.translate("main_window", u"Plotter", None))
+    def retranslateUi(self):
+        self.setWindowTitle(QCoreApplication.translate("main_window", u"Plotter", None))
         self.action_open_state.setText(QCoreApplication.translate("main_window", u"Open state", None))
         self.action_save_State_As.setText(QCoreApplication.translate("main_window", u"Save State As", None))
         self.add_push_button.setText(QCoreApplication.translate("main_window", u"Add", None))
         self.reset_push_button.setText(QCoreApplication.translate("main_window", u"Reset", None))
         self.menuFile.setTitle(QCoreApplication.translate("main_window", u"File", None))
+        self.add_push_button.clicked.connect(self.openDialog)
     # retranslateUi
 
+    def openDialog(self):
+        print("sd")
+        self.dialog = FigureDialog(None, self, None)
+        self.dialog.show()
