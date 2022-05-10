@@ -97,9 +97,13 @@ class MainWindow(QMainWindow):
         self.reset_push_button.setText(QCoreApplication.translate("main_window", u"Reset", None))
         self.menuFile.setTitle(QCoreApplication.translate("main_window", u"File", None))
         self.add_push_button.clicked.connect(self.openDialog)
+        self.reset_push_button.clicked.connect(self.resetAll)
     # retranslateUi
 
     def openDialog(self):
-        print("sd")
         self.dialog = FigureDialog(None, self, None)
         self.dialog.show()
+
+    def resetAll(self):
+        self.figure_list.reset()
+        self.figure_list.update()
