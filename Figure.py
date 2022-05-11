@@ -10,7 +10,7 @@ class Figure:
         self.color = color
 
     def __repr__(self):
-        return f"{self.name}"
+        return f"{self.name}, {self.function}, {self.max}, {self.min}"
 
     @staticmethod
     def FigureToFigureListItem(figure, item:QListWidgetItem):
@@ -19,8 +19,6 @@ class Figure:
         item.setData(6, figure.max)
         item.setData(7, figure.min)
 
-
-
     @staticmethod
     def FigureListItemToFigure(item:QListWidgetItem):
-        return Figure(item.data(4), item.data(5), item.data(6), item.data(7 ))
+        return Figure(item.data(4), item.data(5), item.data(6), item.data(7))

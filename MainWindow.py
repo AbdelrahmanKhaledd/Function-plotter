@@ -16,11 +16,28 @@ from PySide2.QtWidgets import *
 from AddFigureDialog import AddFigureDialog
 from Figure import Figure
 from FigureListItem import FigureListItem
+from EditFigureDialog import EditFigureDialog
+
+import matplotlib
+matplotlib.use('Qt5Agg')
+
+from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT)
+from matplotlib import figure
+from pylab import *
+
+class MplCanvas(FigureCanvasQTAgg):
+
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = figure.Figure(figsize=(width, height), dpi=dpi)
+        self.axes = fig.add_subplot(111)
+        super(MplCanvas, self).__init__(fig)
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi()
-
+        self.selectedItemIndex = 0
 
     def setupUi(self):
         if not self.objectName():
@@ -86,10 +103,23 @@ class MainWindow(QMainWindow):
         self.menuFile.addAction(self.action_open_state)
         self.menuFile.addAction(self.action_save_State_As)
 
+        self.vBox = QVBoxLayout()
+        self._fig = figure(facecolor="white" )
+        self._ax = self._fig.add_subplot(111)
+
+        self._canvas = FigureCanvasQTAgg(self._fig)
+        self._canvas.setParent(self.drawing_area)
+        self._canvas.setFocusPolicy(Qt.StrongFocus)
+        self.vBox.addWidget(self._canvas)
+        self.drawing_area.setLayout(self.vBox)
         self.retranslateUi()
 
         QMetaObject.connectSlotsByName(self)
     # setupUi
+    def plotRandom(self ):
+        self.x = linspace(0, 4 * pi, 1000)
+        self._ax.plot(self.x, sin(2 * pi * rand() * 2 * self.x), lw=2)
+        self._canvas.draw()
 
     def retranslateUi(self):
         self.setWindowTitle(QCoreApplication.translate("main_window", u"Plotter", None))
@@ -100,12 +130,14 @@ class MainWindow(QMainWindow):
         self.menuFile.setTitle(QCoreApplication.translate("main_window", u"File", None))
         self.add_push_button.clicked.connect(self.addFigureEvent)
         self.reset_push_button.clicked.connect(self.resetAll)
-        self.figure_list.itemClicked.connect(self.EditEvent)
+        self.figure_list.itemDoubleClicked.connect(self.EditEvent)
     # retranslateUi
 
     def EditEvent(self, item : QListWidgetItem):
         print(Figure.FigureListItemToFigure(item))
-
+        self.editFigureDialog = EditFigureDialog(Figure.FigureListItemToFigure(item), self)
+        self.editFigureDialog.show()
+        self.selectedItemIndex = self.figure_list.row(item)
 
     def addFigureEvent(self):
         self.addFigureDialog = AddFigureDialog(self)
@@ -120,6 +152,9 @@ class MainWindow(QMainWindow):
         self.figure_list.addItem(listItem)
         self.figure_list.setItemWidget(listItem, listItemWidgit)
         self.figure_list.update()
+
+    def DeleteFigure(self):
+        self.figure_list.takeItem(self.selectedItemIndex)
 
     def resetAll(self):
         self.figure_list.reset()
