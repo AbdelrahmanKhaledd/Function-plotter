@@ -7,13 +7,15 @@
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
+from copy import copy
 
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
-from figure_dialog import FigureDialog
 
-
+from AddFigureDialog import AddFigureDialog
+from Figure import Figure
+from FigureListItem import FigureListItem
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -96,14 +98,31 @@ class MainWindow(QMainWindow):
         self.add_push_button.setText(QCoreApplication.translate("main_window", u"Add", None))
         self.reset_push_button.setText(QCoreApplication.translate("main_window", u"Reset", None))
         self.menuFile.setTitle(QCoreApplication.translate("main_window", u"File", None))
-        self.add_push_button.clicked.connect(self.openDialog)
+        self.add_push_button.clicked.connect(self.addFigureEvent)
         self.reset_push_button.clicked.connect(self.resetAll)
+        self.figure_list.itemClicked.connect(self.EditEvent)
     # retranslateUi
 
-    def openDialog(self):
-        self.dialog = FigureDialog(None, self, None)
-        self.dialog.show()
+    def EditEvent(self, item : QListWidgetItem):
+        print(Figure.FigureListItemToFigure(item))
+
+
+    def addFigureEvent(self):
+        self.addFigureDialog = AddFigureDialog(self)
+        self.addFigureDialog.show()
+
+    def getFigureToAdd(self):
+        figure = copy(self.addFigureDialog.figure)
+        listItemWidgit = FigureListItem()
+        listItem = QListWidgetItem(self.figure_list)
+        listItem.setSizeHint(listItemWidgit.sizeHint())
+        Figure.FigureToFigureListItem(figure, listItem)
+        self.figure_list.addItem(listItem)
+        self.figure_list.setItemWidget(listItem, listItemWidgit)
+        self.figure_list.update()
 
     def resetAll(self):
         self.figure_list.reset()
         self.figure_list.update()
+
+
