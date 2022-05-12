@@ -11,7 +11,7 @@
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
-from Figure import Figure
+from FunctionFigure import Figure
 
 class AddFigureDialog(QDialog):
     def __init__(self, mainWindow):
@@ -206,7 +206,7 @@ class AddFigureDialog(QDialog):
                 int(self.max_textbox.toPlainText().strip()),
                 int(self.min_textbox.toPlainText().strip())
             )
-            self.mainWindow.getFigureToAdd()
+            self.mainWindow.GetFigureToAdd()
             self.close()
 
 

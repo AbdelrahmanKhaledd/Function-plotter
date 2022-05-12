@@ -1,6 +1,6 @@
 import sys
 
-from Figure import Figure
+from FunctionFigure import Figure
 from MainWindow import MainWindow
 from FigureListItem import FigureListItem
 from PySide2.QtCore import *
@@ -24,6 +24,5 @@ if __name__ == '__main__':
     #     mainWindow.figure_list.addItem(itemList)
     #     mainWindow.figure_list.setItemWidget(itemList, widg)
     mainWindow.show()
-    mainWindow.plotRandom()
 
     sys.exit(app.exec_())

@@ -12,7 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-from Figure import Figure
+from FunctionFigure import Figure
 
 class FigureListItem(QWidget):
     def __init__(self, figure:Figure=None):
