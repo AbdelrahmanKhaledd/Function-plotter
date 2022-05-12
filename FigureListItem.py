@@ -37,9 +37,7 @@ class FigureListItem(QWidget):
         font.setBold(True)
         self.figure_name.setFont(font)
         self.figure_name.setAlignment(Qt.AlignCenter)
-
         self.horizontalLayout_2.addWidget(self.figure_name)
-
         self.equation = QLabel(self.layoutWidget)
         self.equation.setObjectName(u"equation")
         self.equation.setMinimumSize(QSize(0, 30))
@@ -47,7 +45,6 @@ class FigureListItem(QWidget):
         font1.setPointSize(12)
         self.equation.setFont(font1)
         self.equation.setAlignment(Qt.AlignCenter)
-
         self.horizontalLayout_2.addWidget(self.equation)
         self.retranslateUi()
         self.setLayout(self.horizontalLayout_2)

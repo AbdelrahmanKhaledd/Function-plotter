@@ -18,7 +18,8 @@ class Figure:
         item.setData(5, figure.function)
         item.setData(6, figure.max)
         item.setData(7, figure.min)
+        item.setData(8, figure.color)
 
     @staticmethod
     def FigureListItemToFigure(item:QListWidgetItem):
-        return Figure(item.data(4), item.data(5), item.data(6), item.data(7))
+        return Figure(item.data(4), item.data(5), item.data(6), item.data(7), item.data(8))
