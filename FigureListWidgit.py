@@ -61,3 +61,4 @@ class FigureListWidgit(QWidget):
     def UpdateWidgit(self, figure:Figure):
         self.figure_name.setText(figure.name)
         self.equation.setText(figure.function)
+        self.figure_name.setStyleSheet(f"color: rgb({self.figure.color[0]},{self.figure.color[1]},{self.figure.color[2]})")
