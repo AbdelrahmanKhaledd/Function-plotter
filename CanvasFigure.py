@@ -24,6 +24,6 @@ class MplCanvas(FigureCanvasQTAgg):
         for figure in figureList:
             x = linspace(figure.min, figure.max)
             y = eval(figure.function)
-            self.axes.plot(x, y ,c='r' )
+            self.axes.plot(x, y ,c=(float(figure.color[0])/255, float(figure.color[1])/255, float(figure.color[2])/255))
         self.axes.grid()
         self.draw()
