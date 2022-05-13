@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>-10</y>
       <width>1041</width>
-      <height>561</height>
+      <height>571</height>
      </rect>
     </property>
     <property name="orientation">
@@ -83,6 +83,26 @@
    <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="font">
+    <font>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionMove"/>
+   <addaction name="actionPan"/>
+   <addaction name="actionScreenshot"/>
+   <addaction name="actionReset"/>
+  </widget>
   <action name="action_open_state">
    <property name="text">
     <string>Open state</string>
@@ -91,6 +111,42 @@
   <action name="action_save_State_As">
    <property name="text">
     <string>Save State As</string>
+   </property>
+  </action>
+  <action name="actionPan">
+   <property name="icon">
+    <iconset>
+     <normaloff>../assets/search.png</normaloff>../assets/search.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pan</string>
+   </property>
+  </action>
+  <action name="actionMove">
+   <property name="icon">
+    <iconset>
+     <normaloff>../assets/pan.png</normaloff>../assets/pan.png</iconset>
+   </property>
+   <property name="text">
+    <string>Move</string>
+   </property>
+  </action>
+  <action name="actionScreenshot">
+   <property name="icon">
+    <iconset>
+     <normaloff>../assets/index.png</normaloff>../assets/index.png</iconset>
+   </property>
+   <property name="text">
+    <string>Screenshot</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="icon">
+    <iconset>
+     <normaloff>../assets/reset.png</normaloff>../assets/reset.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reset</string>
    </property>
   </action>
  </widget>

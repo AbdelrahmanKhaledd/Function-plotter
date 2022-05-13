@@ -14,10 +14,12 @@ from PySide2.QtWidgets import *
 
 from FunctionFigure import Figure
 
-class FigureListItem(QWidget):
+class FigureListWidgit(QWidget):
     def __init__(self, figure:Figure=None):
-        super(FigureListItem, self).__init__()
+        super(FigureListWidgit, self).__init__()
         self.setupUi()
+        self.figure = figure
+        self.UpdateWidgit(self.figure)
 
 
     def setupUi(self):

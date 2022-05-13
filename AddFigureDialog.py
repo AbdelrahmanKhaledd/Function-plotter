@@ -165,7 +165,8 @@ class AddFigureDialog(QDialog):
                 self.figure_name_textbox.toPlainText().strip(),
                 self.function_textbox.toPlainText().strip(),
                 int(self.max_textbox.toPlainText().strip()),
-                int(self.min_textbox.toPlainText().strip())
+                int(self.min_textbox.toPlainText().strip()),
+                self.figure.color
             )
             self.mainWindow.GetFigureToAdd()
             self.close()
@@ -194,6 +195,9 @@ class AddFigureDialog(QDialog):
     def ColorBick(self):
         color = QColorDialog.getColor()
         if color.isValid():
-            print(color.red(), color.green(), color.blue())
-            self.color_button.setStyleSheet(f"background-color: rgb({color.red()},{color.green()},{color.blue()});")
             self.figure.color = (color.red(), color.green(), color.blue())
+            self.UpdateVolorButton(self.figure.color)
+            print((self.figure))
+
+    def UpdateVolorButton(self, color):
+        self.color_button.setStyleSheet(f"background-color: rgb({color[0]},{color[1]},{color[2]});")

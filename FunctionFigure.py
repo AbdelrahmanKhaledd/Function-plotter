@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QListWidgetItem
 
-
+from CanvasFigure import MplCanvas
 class Figure:
     def __init__(self, name=None, function=None, max=None, min=None, color=None):
         self.name = name
@@ -10,7 +10,7 @@ class Figure:
         self.color = color
 
     def __repr__(self):
-        return f"{self.name}, {self.function}, {self.max}, {self.min}"
+        return f"{self.name}, {self.function}, {self.max}, {self.min}, {self.color}"
 
     @staticmethod
     def FigureToFigureListItem(figure, item:QListWidgetItem):
@@ -23,3 +23,30 @@ class Figure:
     @staticmethod
     def FigureListItemToFigure(item:QListWidgetItem):
         return Figure(item.data(4), item.data(5), item.data(6), item.data(7), item.data(8))
+
+class FigureList:
+    def __init__(self):
+        self.list = []
+
+    def Add(self, figure:Figure):
+        self.list.append(figure)
+
+    def Edit(self, index, figure:Figure):
+        self.list[index] = figure
+
+    def Clear(self):
+        self.list = []
+
+    def Delete(self, index):
+        del self.list[index]
+
+    def Render(self, mainWindow, canvas:MplCanvas):
+        mainWindow.figure_list.clear()
+        for figure in self.list:
+            from FigureListWidgit import FigureListWidgit
+            itemWidget = FigureListWidgit(figure)
+            itemList = QListWidgetItem(mainWindow.figure_list)
+            itemList.setSizeHint(itemWidget.sizeHint())
+            mainWindow.figure_list.addItem(itemList)
+            mainWindow.figure_list.setItemWidget(itemList, itemWidget)
+        canvas.UpdateFigureList(self.list)

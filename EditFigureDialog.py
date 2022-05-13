@@ -12,7 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-
+from FunctionFigure import Figure
 class EditFigureDialog(QDialog):
     def __init__(self, figure, mainWindow):
         super(EditFigureDialog, self).__init__()
@@ -156,6 +156,8 @@ class EditFigureDialog(QDialog):
 
         self.cancel_button.clicked.connect(self.close)
         self.remove_button.clicked.connect(self.DeleteEvent)
+        self.color_button.clicked.connect(self.ColorBick)
+        self.ok_button.clicked.connect(self.OkEvent)
 
     # retranslateUi
     def UpdateFigure(self):
@@ -163,8 +165,55 @@ class EditFigureDialog(QDialog):
         self.function_textbox.setText(self.figure.function)
         self.max_textbox.setText(str(self.figure.max))
         self.min_textbox.setText(str(self.figure.min))
+        self.UpdateColorButton(self.figure.color)
 
     def DeleteEvent(self):
         self.mainWindow.DeleteFigure()
         self.close()
 
+    def ColorBick(self):
+        color = QColorDialog.getColor()
+        if color.isValid():
+            print(color.red(), color.green(), color.blue())
+            self.figure.color = (color.red(), color.green(), color.blue())
+            self.UpdateColorButton(self.figure.color)
+
+    def UpdateColorButton(self, color):
+        self.color_button.setStyleSheet(f"background-color: rgb({color[0]},{color[1]},{color[2]});")
+
+    def OkEvent(self):
+        errorMessage = self.isValid()
+        if len(errorMessage) > 0:
+            self.errorDialog = QErrorMessage()
+            self.errorDialog.showMessage(errorMessage)
+        else:
+            self.figure = Figure(
+                self.figure_name_textbox.toPlainText().strip(),
+                self.function_textbox.toPlainText().strip(),
+                int(self.max_textbox.toPlainText().strip()),
+                int(self.min_textbox.toPlainText().strip()),
+                self.figure.color
+            )
+            self.mainWindow.UpdateFigure()
+            self.close()
+
+    def isValid(self):
+        valid = True
+        currentMax = int(self.max_textbox.toPlainText())
+        currentMin = int(self.min_textbox.toPlainText())
+        currentName = self.figure_name_textbox.toPlainText()
+        currentFunction = self.function_textbox.placeholderText()
+        errorMessage = ""
+        if currentMin > currentMax:
+            valid = False
+            errorMessage += "Max must be bigger than min\n"
+
+        if len(currentName) > 6:
+            valid = False
+            errorMessage += "Name's length must be smaller than 6\n"
+
+        #TODO syntax
+        if valid:
+            return ""
+        else:
+            return errorMessage

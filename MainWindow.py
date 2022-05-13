@@ -15,8 +15,9 @@ from PySide2.QtWidgets import *
 from CanvasFigure import MplCanvas
 import FunctionFigure
 from AddFigureDialog import AddFigureDialog
-from FunctionFigure import Figure
-from FigureListItem import FigureListItem
+from FunctionFigure import Figure, FigureList
+from FigureListWidgit import FigureListWidgit
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT
 from EditFigureDialog import EditFigureDialog
 
 class MainWindow(QMainWindow):
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setupUi()
         self.selectedItemIndex = 0
+        self.figureList = FigureList()
 
     def setupUi(self):
         if not self.objectName():
@@ -89,8 +91,10 @@ class MainWindow(QMainWindow):
         self.menuFile.addAction(self.action_open_state)
         self.menuFile.addAction(self.action_save_State_As)
 
+
+
         self.vBox = QVBoxLayout()
-        self.canv = MplCanvas(self)
+        self.canv = MplCanvas()
         # self._fig.add_axes((0, 0, 1, 1))
         self.canv.setParent(self.drawing_area)
         self.canv.setFocusPolicy(Qt.StrongFocus)
@@ -114,10 +118,10 @@ class MainWindow(QMainWindow):
     # retranslateUi
 
     def EditEvent(self, item : QListWidgetItem):
-        print(Figure.FigureListItemToFigure(item))
-        self.editFigureDialog = EditFigureDialog(Figure.FigureListItemToFigure(item), self)
-        self.editFigureDialog.show()
         self.selectedItemIndex = self.figure_list.row(item)
+        print(self.figureList.list[self.selectedItemIndex])
+        self.editFigureDialog = EditFigureDialog(self.figureList.list[self.selectedItemIndex], self)
+        self.editFigureDialog.show()
 
     def ShowAddFigureEvent(self):
         self.addFigureDialog = AddFigureDialog(self)
@@ -125,24 +129,23 @@ class MainWindow(QMainWindow):
 
     def GetFigureToAdd(self):
         listItemFigure = self.addFigureDialog.figure
-        listItemWidgit = FigureListItem()
-        listItem = QListWidgetItem(self.figure_list)
-        listItem.setSizeHint(listItemWidgit.sizeHint())
-        FunctionFigure.Figure.FigureToFigureListItem(listItemFigure, listItem)
-        listItemWidgit.UpdateWidgit(listItemFigure)
-        self.figure_list.addItem(listItem)
-        self.figure_list.setItemWidget(listItem, listItemWidgit)
-        self.figure_list.update()
-        self.canv.UpdateFigureList()
+        print(self.addFigureDialog.figure)
+        self.figureList.Add(listItemFigure)
+        self.figureList.Render(self, self.canv)
+
 
     def DeleteFigure(self):
-        self.figure_list.takeItem(self.selectedItemIndex)
-        self.canv.UpdateFigureList()
+        self.figureList.Delete(self.selectedItemIndex)
+        self.figureList.Render(self, self.canv)
+
+    def UpdateFigure(self):
+        newFigure = self.editFigureDialog.figure
+        self.figureList.list[self.selectedItemIndex] = newFigure
+        print(newFigure)
+        self.figureList.Render(self, self.canv)
 
     def resetAll(self):
-        for i in range(self.figure_list.count()):
-            self.figure_list.takeItem(i)
-        self.figure_list.update()
-        self.canv.UpdateFigureList()
+       self.figureList.Clear()
+       self.figureList.Render(self, self.canv)
 
 
