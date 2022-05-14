@@ -2,12 +2,13 @@ from PySide2.QtWidgets import QListWidgetItem
 
 from CanvasFigure import MplCanvas
 class Figure:
-    def __init__(self, name=None, function=None, max=None, min=None, color=None):
+    def __init__(self, name=None, function=None, max=None, min=None, color=None, interpreter=None):
         self.name = name
         self.function = function
         self.max = max
         self.min = min
         self.color = color
+        self.interpreter = interpreter
 
     def __repr__(self):
         return f"{self.name}, {self.function}, {self.max}, {self.min}, {self.color}"

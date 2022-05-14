@@ -5,7 +5,7 @@ from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToo
 import FunctionFigure
 from pylab import *
 from matplotlib import figure as figure
-
+import multiprocessing
 class MplCanvas(FigureCanvasQTAgg):
 
     def __init__(self):
@@ -23,7 +23,8 @@ class MplCanvas(FigureCanvasQTAgg):
         self.axes = self.figure.add_subplot(111)
         for figure in figureList:
             x = linspace(figure.min, figure.max)
-            y = eval(figure.function)
+            thread_pool = multiprocessing.Pool(multiprocessing.cpu_count() - 1)
+            y = thread_pool.map(figure.interpreter.interpret, x)
             self.axes.plot(x, y ,c=(float(figure.color[0])/255, float(figure.color[1])/255, float(figure.color[2])/255))
         self.axes.grid()
         self.draw()
