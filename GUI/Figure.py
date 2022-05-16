@@ -1,6 +1,6 @@
 from PySide2.QtWidgets import QListWidgetItem
 
-from CanvasFigure import MplCanvas
+from GUI.CanvasFigure import MplCanvas
 class Figure:
     def __init__(self, name=None, function=None, max=None, min=None, color=None, interpreter=None):
         self.name = name
@@ -44,7 +44,7 @@ class FigureList:
     def Render(self, mainWindow, canvas:MplCanvas):
         mainWindow.figure_list.clear()
         for figure in self.list:
-            from FigureListWidgit import FigureListWidgit
+            from GUI.FigureListWidgit import FigureListWidgit
             itemWidget = FigureListWidgit(figure)
             itemList = QListWidgetItem(mainWindow.figure_list)
             itemList.setSizeHint(itemWidget.sizeHint())

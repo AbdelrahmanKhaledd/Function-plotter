@@ -1,11 +1,11 @@
 import matplotlib
 matplotlib.use('Qt5Agg')
 
-from matplotlib.backends.backend_qt5agg import (FigureCanvasQTAgg, NavigationToolbar2QT)
-import FunctionFigure
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from pylab import *
 from matplotlib import figure as figure
 import multiprocessing
+
 class MplCanvas(FigureCanvasQTAgg):
 
     def __init__(self):

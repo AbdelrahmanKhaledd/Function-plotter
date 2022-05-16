@@ -1,24 +1,11 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'mainwindow.ui'
-##
-## Created by: Qt User Interface Compiler version 5.15.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-from copy import copy
-
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
-from CanvasFigure import MplCanvas
-import FunctionFigure
-from AddFigureDialog import AddFigureDialog
-from FunctionFigure import Figure, FigureList
-from FigureListWidgit import FigureListWidgit
+from GUI.CanvasFigure import MplCanvas
+from GUI.AddFigureDialog import AddFigureDialog
+from GUI.Figure import Figure, FigureList
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT
-from EditFigureDialog import EditFigureDialog
+from GUI.EditFigureDialog import EditFigureDialog
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -30,8 +17,6 @@ class MainWindow(QMainWindow):
         self.setupUi()
 
     def setupUi(self):
-        if not self.objectName():
-            self.setObjectName(u"main_window")
         self.resize(1040, 648)
         self.action_open_state = QAction(self)
         self.action_open_state.setObjectName(u"action_open_state")
@@ -63,35 +48,28 @@ class MainWindow(QMainWindow):
         self.actionReset.setIcon(icon3)
 
         self.centralwidget = QWidget(self)
-        self.centralwidget.setObjectName(u"centralwidget")
         self.splitter = QSplitter(self.centralwidget)
-        self.splitter.setObjectName(u"splitter")
         self.splitter.setGeometry(QRect(5, 5, 1031, 561))
         self.splitter.setOrientation(Qt.Horizontal)
         self.layoutWidget = QWidget(self.splitter)
-        self.layoutWidget.setObjectName(u"layoutWidget")
         self.verticalLayout = QVBoxLayout(self.layoutWidget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+
         self.figure_list = QListWidget(self.layoutWidget)
-        self.figure_list.setObjectName(u"figure_list")
         self.verticalLayout.addWidget(self.figure_list)
         self.figure_list.setMinimumSize(QSize(240, 0))
         self.figure_list.setMaximumSize(QSize(250, 16777215))
         self.figure_list.setStyleSheet(
             "QListWidget::item:selected {background-color: white; border-left: 2px solid red;}");
         self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.add_push_button = QPushButton(self.layoutWidget)
-        self.add_push_button.setObjectName(u"add_push_button")
         self.horizontalLayout.addWidget(self.add_push_button)
         self.reset_push_button = QPushButton(self.layoutWidget)
-        self.reset_push_button.setObjectName(u"reset_push_button")
         self.horizontalLayout.addWidget(self.reset_push_button)
+
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.splitter.addWidget(self.layoutWidget)
         self.drawing_area = QWidget(self.splitter)
-        self.drawing_area.setObjectName(u"drawing_area")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(5)
         sizePolicy.setVerticalStretch(0)
@@ -100,6 +78,7 @@ class MainWindow(QMainWindow):
         self.drawing_area.setStyleSheet(u"background-color: rgb(255, 255, 255);")
         self.splitter.addWidget(self.drawing_area)
         self.setCentralWidget(self.centralwidget)
+
         self.menubar = QMenuBar(self)
         self.menubar.setObjectName(u"menubar")
         self.menubar.setGeometry(QRect(0, 0, 1037, 19))
@@ -123,7 +102,6 @@ class MainWindow(QMainWindow):
         self.toolBar.addAction(self.actionScreenshot)
         self.toolBar.addAction(self.actionReset)
         self.vBox = QVBoxLayout()
-        # self._fig.add_axes((0, 0, 1, 1))
         self.canv.setParent(self.drawing_area)
         self.canv.setFocusPolicy(Qt.StrongFocus)
         self.vBox.addWidget(self.canv)

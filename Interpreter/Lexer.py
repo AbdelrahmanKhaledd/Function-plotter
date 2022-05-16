@@ -71,7 +71,7 @@ class Lexer(object):
                 self.advance()
                 return Token(Tokens.RPAREN, ')')
 
-            raise Exception('Invalid character')
+            raise Exception(f'Invalid character{self.currentChar}')
 
         return Token(Tokens.EOF, None)
 

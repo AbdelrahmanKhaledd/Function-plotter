@@ -1,10 +1,6 @@
 import sys
 
-from FunctionFigure import Figure
-from MainWindow import MainWindow
-from FigureListWidgit import FigureListWidgit
-from PySide2.QtCore import *
-from PySide2.QtGui import *
+from GUI.MainWindow import MainWindow
 from PySide2.QtWidgets import *
 
 def show(item):
