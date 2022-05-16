@@ -1,6 +1,7 @@
-from Tokens import *
-from SyntaxTree import *
-from Lexer import *
+from Interpreter.Tokens import *
+from Interpreter.SyntaxTree import *
+from Interpreter.Lexer import *
+
 class Parser(object):
     def __init__(self, lexer):
         self.lexer = lexer

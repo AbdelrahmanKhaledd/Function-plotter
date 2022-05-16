@@ -11,7 +11,7 @@
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
-
+from Interpreter import Interpreter
 from FunctionFigure import Figure
 class EditFigureDialog(QDialog):
     def __init__(self, figure, mainWindow):
@@ -192,7 +192,8 @@ class EditFigureDialog(QDialog):
                 self.function_textbox.toPlainText().strip(),
                 int(self.max_textbox.toPlainText().strip()),
                 int(self.min_textbox.toPlainText().strip()),
-                self.figure.color
+                self.figure.color,
+                self.inter
             )
             self.mainWindow.UpdateFigure()
             self.close()
@@ -212,7 +213,8 @@ class EditFigureDialog(QDialog):
             valid = False
             errorMessage += "Name's length must be smaller than 6\n"
 
-        #TODO syntax
+        self.inter = Interpreter(currentFunction)
+
         if valid:
             return ""
         else:

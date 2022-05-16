@@ -1,4 +1,5 @@
-from Tokens import *
+from Interpreter.Tokens import *
+
 class Lexer(object):
     def __init__(self, text):
         self.text = text

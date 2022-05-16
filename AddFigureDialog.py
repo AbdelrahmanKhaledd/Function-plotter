@@ -12,13 +12,14 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from FunctionFigure import Figure
-
+from Interpreter.Interpreter import *
 class AddFigureDialog(QDialog):
     def __init__(self, mainWindow):
         super(AddFigureDialog, self).__init__()
         self.setupUi()
         self.figure = Figure()
         self.mainWindow = mainWindow
+        self.inter = None
 
     def setupUi(self):
         if not self.objectName():
@@ -166,7 +167,8 @@ class AddFigureDialog(QDialog):
                 self.function_textbox.toPlainText().strip(),
                 int(self.max_textbox.toPlainText().strip()),
                 int(self.min_textbox.toPlainText().strip()),
-                self.figure.color
+                self.figure.color,
+                self.inter
             )
             self.mainWindow.GetFigureToAdd()
             self.close()
@@ -176,7 +178,7 @@ class AddFigureDialog(QDialog):
         currentMax = int(self.max_textbox.toPlainText())
         currentMin = int(self.min_textbox.toPlainText())
         currentName = self.figure_name_textbox.toPlainText()
-        currentFunction = self.function_textbox.placeholderText()
+        currentFunction = self.function_textbox.toPlainText()
         errorMessage = ""
         if currentMin > currentMax:
             valid = False
@@ -186,7 +188,8 @@ class AddFigureDialog(QDialog):
             valid = False
             errorMessage += "Name's length must be smaller than 6\n"
 
-        #TODO syntax
+        self.inter = Interpreter(currentFunction)
+
         if valid:
             return ""
         else:

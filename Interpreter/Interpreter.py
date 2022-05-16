@@ -1,10 +1,13 @@
-from Tokens import *
-from SyntaxTree import *
-from Lexer import *
-from Parser import *
+from Interpreter.Tokens import *
+from Interpreter.SyntaxTree import *
+from Interpreter.Lexer import *
+from Interpreter.Parser import *
+
 class Interpreter():
-    def __init__(self, parser):
-        self.parser = parser
+    def __init__(self, text:str):
+        self.text = text
+        self.lexer = Lexer(self.text)
+        self.root = Parser(self.lexer).parse()
 
     def visit(self, node, x):
         if node.type == NodeTypes.BINARY:
@@ -32,8 +35,7 @@ class Interpreter():
             return int(x)
 
     def interpret(self, x ):
-        tree = self.parser.parse()
-        return self.visit(tree, x )
+        return self.visit(self.root, x )
 
 
 if __name__ == '__main__':

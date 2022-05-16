@@ -148,15 +148,16 @@ class MainWindow(QMainWindow):
         self.add_push_button.clicked.connect(self.ShowAddFigureEvent)
         self.reset_push_button.clicked.connect(self.resetAll)
         self.figure_list.itemDoubleClicked.connect(self.EditEvent)
-        # self.actionPan.clicked.connect(self.navigationBar.press_pan)
         self.actionPan.triggered.connect(self.navigationBar.pan)
         self.actionZoom.triggered.connect(self.navigationBar.zoom)
         self.actionScreenshot.triggered.connect(self.navigationBar.save_figure)
+        self.actionReset.triggered.connect(self.navigationBar.home)
 
     # retranslateUi
 
     def test(self):
         print("s")
+
     def EditEvent(self, item : QListWidgetItem):
         self.selectedItemIndex = self.figure_list.row(item)
         print(self.figureList.list[self.selectedItemIndex])
