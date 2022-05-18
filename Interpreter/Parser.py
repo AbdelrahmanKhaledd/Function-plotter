@@ -1,80 +1,90 @@
-from Interpreter.Tokens import *
 from Interpreter.SyntaxTree import *
 from Interpreter.Lexer import *
 
 class Parser(object):
     def __init__(self, lexer):
         self.lexer = lexer
-        self.current_token = self.lexer.get_next_token()
+        self.currentToken = self.lexer.GetNextToken()
 
-    def error(self):
-        raise Exception('Invalid syntax')
-
-    def eat(self, token_type):
-        if self.current_token.type == token_type:
-            self.current_token = self.lexer.get_next_token()
+    def Take(self, tokenType):
+        if self.currentToken.type == tokenType :
+            self.currentToken = self.lexer.GetNextToken()
         else:
-            self.error()
+            raise Exception(f'Invalid syntax in {self.lexer.currentChar}')
 
-    def factor(self):
-        token = self.current_token
+    def Factor(self):
+        token = self.currentToken
         if token.type == Tokens.PLUS:
-            self.eat(Tokens.PLUS)
-            node = UnaryOp(token, self.factor())
+            self.Take(Tokens.PLUS)
+            node = UnaryOp(token, self.Factor())
             return node
 
         elif token.type == Tokens.MINUS:
-            self.eat(Tokens.MINUS)
-            node = UnaryOp(token, self.factor())
+            self.Take(Tokens.MINUS)
+            node = UnaryOp(token, self.Factor())
             return node
 
         elif token.type == Tokens.NUMBER:
-            self.eat(Tokens.NUMBER)
-            return Num(token)
-
-        elif token.type == Tokens.VAR:
-            self.eat(Tokens.VAR)
-            return Var(token)
-
-        elif token.type == Tokens.LPAREN:
-            self.eat(Tokens.LPAREN)
-            node = self.expr()
-            self.eat(Tokens.RPAREN)
+            self.Take(Tokens.NUMBER)
+            node =Num(token)
             return node
 
-    def prim(self):
-        node = self.factor()
-        while self.current_token.type == Tokens.EXP:
-            token = self.current_token
-            self.eat(Tokens.EXP)
-            node = BinOp(left=node, op=token, right=self.factor())
+        elif token.type == Tokens.VAR:
+            self.Take(Tokens.VAR)
+            node = Var(token)
+            return node
+
+        elif token.type == Tokens.LPAREN:
+            self.Take(Tokens.LPAREN)
+            node = self.expr()
+            self.Take(Tokens.RPAREN)
+            return node
+
+    def Prim(self):
+        node = self.Factor()
+        while self.currentToken.type == Tokens.EXP:
+            token = self.currentToken
+            self.Take(Tokens.EXP)
+            left = node
+            right = self.Factor()
+            if left == None or right == None:
+                raise Exception(f'Invalid syntax in {self.lexer.currentChar}')
+
+            node = BinOp(left=left, op=token, right=right)
         return node
 
-    def term(self):
-        node = self.prim()
+    def Term(self):
+        node = self.Prim()
 
-        while self.current_token.type in (Tokens.MUL, Tokens.DIV):
-            token = self.current_token
+        while self.currentToken.type in (Tokens.MUL, Tokens.DIV):
+            token = self.currentToken
             if token.type == Tokens.MUL:
-                self.eat(Tokens.MUL)
+                self.Take(Tokens.MUL)
             elif token.type == Tokens.DIV:
-                self.eat(Tokens.DIV)
-
-            node = BinOp(left=node, op=token, right=self.prim())
+                self.Take(Tokens.DIV)
+            left = node
+            right = self.Prim()
+            if left == None or right == None:
+                raise Exception(f'Invalid syntax in {self.lexer.currentChar}')
+            node = BinOp(left=left, op=token, right=right)
         return node
 
-    def expr(self):
-        node = self.term()
-        while self.current_token.type in (Tokens.PLUS, Tokens.MINUS):
-            token = self.current_token
+    def BuildTree(self):
+        node = self.Term()
+        while self.currentToken.type in (Tokens.PLUS, Tokens.MINUS):
+            token = self.currentToken
             if token.type == Tokens.PLUS:
-                self.eat(Tokens.PLUS)
+                self.Take(Tokens.PLUS)
             elif token.type == Tokens.MINUS:
-                self.eat(Tokens.MINUS)
-            node = BinOp(left=node, op=token, right=self.term())
+                self.Take(Tokens.MINUS)
+            left = node
+            right = self.Term()
+            if left == None or right == None:
+                raise Exception(f'Invalid syntax in {self.lexer.currentChar}')
 
+            node = BinOp(left=left, op=token, right=right)
         return node
 
     def parse(self):
-        return self.expr()
+        return SyntaxTree(self.BuildTree())
 

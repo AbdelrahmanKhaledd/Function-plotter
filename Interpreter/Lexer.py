@@ -6,69 +6,72 @@ class Lexer(object):
         self.pos = 0
         self.currentChar = self.text[self.pos]
 
-    def advance(self):
+    def Advance(self):
+        """increasing index by one"""
         self.pos += 1
         if self.pos == len(self.text):
             self.currentChar = None  # Indicates end of input
         else:
             self.currentChar = self.text[self.pos]
 
-    def whitespace(self):
+    def Whitespace(self):
+        """jumping spaces"""
         while self.currentChar is not None and self.currentChar.isspace():
-            self.advance()
+            self.Advance()
 
-    def number(self):
+    def Number(self):
+        """Return numbers in equations like :121"""
         result = ''
         while self.currentChar is not None and self.currentChar.isdigit():
             result += self.currentChar
-            self.advance()
+            self.Advance()
         return int(result)
 
-    def variable(self):
+    def Variable(self):
         """Return a variable symbol like:x """
         result = ''
         while self.currentChar != None and self.currentChar.isalpha():
             result += self.currentChar
-            self.advance()
+            self.Advance()
         return result
 
-    def get_next_token(self):
+    def GetNextToken(self):
         while self.currentChar != None:
             if self.currentChar.isspace():
-                self.whitespace()
+                self.Whitespace()
                 continue
             if self.currentChar.isdigit():
-                return Token(Tokens.NUMBER, self.number())
+                return Token(Tokens.NUMBER, self.Number())
 
             if self.currentChar.isalpha():
-                return Token(Tokens.VAR, self.variable())
+                return Token(Tokens.VAR, self.Variable())
 
             if self.currentChar == '+':
-                self.advance()
+                self.Advance()
                 return Token(Tokens.PLUS, '+')
 
             if self.currentChar == '-':
-                self.advance()
+                self.Advance()
                 return Token(Tokens.MINUS, '-')
 
             if self.currentChar == '*':
-                self.advance()
+                self.Advance()
                 return Token(Tokens.MUL, '*')
 
             if self.currentChar == '/':
-                self.advance()
+                self.Advance()
                 return Token(Tokens.DIV, '/')
 
             if self.currentChar == '^':
-                self.advance()
+                self.Advance()
                 return Token(Tokens.EXP, '^')
 
             if self.currentChar == '(':
-                self.advance()
+                self.Advance()
                 return Token(Tokens.LPAREN, '(')
 
             if self.currentChar == ')':
-                self.advance()
+                self.Advance()
                 return Token(Tokens.RPAREN, ')')
 
             raise Exception(f'Invalid character{self.currentChar}')
