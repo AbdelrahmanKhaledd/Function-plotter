@@ -130,6 +130,7 @@ class MainWindow(QMainWindow):
         self.actionZoom.triggered.connect(self.navigationBar.zoom)
         self.actionScreenshot.triggered.connect(self.navigationBar.save_figure)
         self.actionReset.triggered.connect(self.navigationBar.home)
+        self.action_open_state.triggered.connect(self.OpenStateFile)
 
     # retranslateUi
 
@@ -166,5 +167,10 @@ class MainWindow(QMainWindow):
     def resetAll(self):
        self.figureList.Clear()
        self.figureList.Render(self, self.canv)
+
+    def OpenStateFile(self):
+        fileName = QFileDialog.getOpenFileName(filter='json')
+        if fileName !=('', ''):
+            pass 
 
 
