@@ -26,13 +26,9 @@ class FigureDialog(QDialog):
         self.labelMax = QLabel(self.layoutWidget)
         self.labelMax.setMinimumSize(QSize(30, 0))
         self.labelMax.setMaximumSize(QSize(16777215, 40))
-        self.labelMax.setAlignment(Qt.AlignCenter)
 
         self.maxTextBox = QTextEdit(self.layoutWidget)
         self.maxTextBox.setMaximumSize(QSize(16777215, 40))
-        font = QFont()
-        font.setPointSize(15)
-        self.maxTextBox.setFont(font)
         self.horizontalLayoutMax.addWidget(self.labelMax)
         self.horizontalLayoutMax.addWidget(self.maxTextBox)
 
@@ -42,7 +38,6 @@ class FigureDialog(QDialog):
         self.labelMin = QLabel(self.layoutWidget)
         self.labelMin.setMinimumSize(QSize(30, 0))
         self.labelMin.setMaximumSize(QSize(16777215, 40))
-        self.labelMin.setAlignment(Qt.AlignCenter)
         self.minTextBox = QTextEdit(self.layoutWidget)
         self.minTextBox.setMaximumSize(QSize(16777215, 40))
         self.horizontalLayoutMin.addWidget(self.labelMin)
@@ -56,12 +51,8 @@ class FigureDialog(QDialog):
         self.labelName = QLabel(self.layoutWidget)
         self.labelName.setMinimumSize(QSize(47, 0))
         self.labelName.setMaximumSize(QSize(16777215, 40))
-        self.labelName.setAlignment(Qt.AlignCenter)
         self.figureNameTextBox = QTextEdit(self.layoutWidget)
         self.figureNameTextBox.setMaximumSize(QSize(16777215, 40))
-        font1 = QFont()
-        font1.setPointSize(15)
-        self.figureNameTextBox.setFont(font1)
         self.horizontalLayoutName.addWidget(self.labelName)
         self.horizontalLayoutName.addWidget(self.figureNameTextBox)
 
@@ -70,11 +61,8 @@ class FigureDialog(QDialog):
         self.labelFunction = QLabel(self.layoutWidget)
         self.labelFunction.setMinimumSize(QSize(0, 30))
         self.labelFunction.setMaximumSize(QSize(16777215, 40))
-        self.labelFunction.setAlignment(Qt.AlignCenter)
         self.functionTextBox = QTextEdit(self.layoutWidget)
         self.functionTextBox.setMaximumSize(QSize(16777215, 40))
-        self.figureNameTextBox.setFont(QFont(pointSize=15))
-        self.functionTextBox.setFont(QFont(pointSize=15))
         self.horizontalLayoutFunction.addWidget(self.labelFunction)
         self.horizontalLayoutFunction.addWidget(self.functionTextBox)
 
@@ -108,11 +96,19 @@ class FigureDialog(QDialog):
 
 
     def RetranslateUi(self):
+        self.maxTextBox.setAlignment(Qt.AlignCenter)
+        self.minTextBox.setAlignment(Qt.AlignCenter)
+        font = QFont()
+        font.setPointSize(15)
+        self.maxTextBox.setFont(font)
+        self.minTextBox.setFont(font)
+
+        self.figureNameTextBox.setFont(font)
+        self.functionTextBox.setFont(font)
+
         self.setWindowTitle(QCoreApplication.translate("Edit", u"Edit figure", None))
         self.labelColor.setText(QCoreApplication.translate("figure_properity_dialog", u"Color", None))
         self.colorButton.setText("")
-        self.minTextBox.setAlignment(Qt.AlignCenter)
-        self.maxTextBox.setAlignment(Qt.AlignCenter)
         self.labelMax.setText(QCoreApplication.translate("figure_properity_dialog", u"Max", None))
         self.labelMin.setText(QCoreApplication.translate("figure_properity_dialog", u"Min", None))
         self.labelName.setText(QCoreApplication.translate("figure_properity_dialog", u"Name", None))
@@ -173,8 +169,15 @@ class AddFigureDialog(FigureDialog):
         super(AddFigureDialog, self).__init__()
         self.setupUi()
         self.mainWindow = mainWindow
+        self.Prepare()
+
+    def Prepare(self):
         self.figure.color = (random.randint(0,244), random.randint(0,244), random.randint(0,244))
         self.UpdateColorButton(self.figure.color)
+        self.maxTextBox.setText('100')
+        self.minTextBox.setText('-100')
+        self.maxTextBox.setAlignment(Qt.AlignCenter)
+        self.minTextBox.setAlignment(Qt.AlignCenter)
 
 
     def Connect(self):
@@ -230,6 +233,8 @@ class EditFigureDialog(FigureDialog):
         self.maxTextBox.setText(str(self.figure.max))
         self.minTextBox.setText(str(self.figure.min))
         self.UpdateColorButton(self.figure.color)
+        self.maxTextBox.setAlignment(Qt.AlignCenter)
+        self.minTextBox.setAlignment(Qt.AlignCenter)
 
     def DeleteEvent(self):
         self.mainWindow.DeleteFigure()

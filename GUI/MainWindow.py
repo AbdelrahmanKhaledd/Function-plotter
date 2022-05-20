@@ -6,7 +6,7 @@ from GUI.FigureDialog import AddFigureDialog
 from GUI.Figure import Figure, FigureList
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT
 from GUI.FigureDialog import EditFigureDialog
-
+from GUI.State import *
 class MainWindow(QMainWindow):
     """Main window widget"""
     def __init__(self):
@@ -16,12 +16,14 @@ class MainWindow(QMainWindow):
         self.canv = MplCanvas()
         self.navigationBar = NavigationToolbar2QT(self.canv , None, True)
         self.SetupUi()
+        self.state = State(self)
         self.Connect()
 
     def SetupUi(self):
         self.resize(1040, 648)
+        self.actionNewState = QAction(self)
         self.actionOpenState = QAction(self)
-
+        self.actionSaveState = QAction(self)
         self.actionSvaeStateAs = QAction(self)
 
         self.actionPan = QAction(self)
@@ -89,7 +91,9 @@ class MainWindow(QMainWindow):
         self.toolBar.setFont(font)
         self.addToolBar(Qt.TopToolBarArea, self.toolBar)
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menuFile.addAction(self.actionNewState)
         self.menuFile.addAction(self.actionOpenState)
+        self.menuFile.addAction(self.actionSaveState)
         self.menuFile.addAction(self.actionSvaeStateAs)
         self.toolBar.addAction(self.actionPan)
         self.toolBar.addAction(self.actionZoom)
@@ -107,8 +111,10 @@ class MainWindow(QMainWindow):
 
     def retranslateUi(self):
         self.setWindowTitle(QCoreApplication.translate("main_window", u"Plotter", None))
+        self.actionNewState.setText(QCoreApplication.translate("main_window", u"New state", None))
         self.actionOpenState.setText(QCoreApplication.translate("main_window", u"Open state", None))
-        self.actionSvaeStateAs.setText(QCoreApplication.translate("main_window", u"Save State As", None))
+        self.actionSaveState.setText(QCoreApplication.translate("main_window", u"Save state", None))
+        self.actionSvaeStateAs.setText(QCoreApplication.translate("main_window", u"Save state as", None))
         self.actionPan.setText(QCoreApplication.translate("main_window", u"Pan", None))
         self.actionZoom.setText(QCoreApplication.translate("main_window", u"Zoom", None))
         self.actionScreenshot.setText(QCoreApplication.translate("main_window", u"Screenshot", None))
@@ -128,7 +134,10 @@ class MainWindow(QMainWindow):
         self.actionZoom.triggered.connect(self.navigationBar.zoom)
         self.actionScreenshot.triggered.connect(self.navigationBar.save_figure)
         self.actionReset.triggered.connect(self.navigationBar.home)
-        self.actionOpenState.triggered.connect(self.OpenStateFile)
+        self.actionOpenState.triggered.connect(self.state.OpenState)
+        self.actionSaveState.triggered.connect(self.state.Save)
+        self.actionSvaeStateAs.triggered.connect(self.state.SaveAs)
+        self.actionNewState.triggered.connect(self.state.NewState)
 
 
     def EditEvent(self, item : QListWidgetItem):
@@ -162,9 +171,6 @@ class MainWindow(QMainWindow):
        self.figureList.Clear()
        self.figureList.Render(self, self.canv)
 
-    def OpenStateFile(self):
-        fileName = QFileDialog.getOpenFileName(filter='json')
-        if fileName !=('', ''):
-            pass
+
 
 

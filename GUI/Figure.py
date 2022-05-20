@@ -13,6 +13,14 @@ class Figure:
     def __repr__(self):
         return f"{self.name}, {self.function}, {self.max}, {self.min}, {self.color}"
 
+    def ToDict(self):
+        return {
+            'name':self.name,
+            'function':self.function,
+            'max':self.max,
+            'min':self.min,
+            'color':self.color,
+        }
     @staticmethod
     def FigureToFigureListItem(figure, item:QListWidgetItem):
         item.setData(4, figure.name)
@@ -24,6 +32,19 @@ class Figure:
     @staticmethod
     def FigureListItemToFigure(item:QListWidgetItem):
         return Figure(item.data(4), item.data(5), item.data(6), item.data(7), item.data(8))
+
+    @staticmethod
+    def DictToFigure(figureDict):
+        return Figure(
+            figureDict['name'],
+            figureDict['function'],
+            int(figureDict['max']),
+            int(figureDict['min']),
+            figureDict['color']
+        )
+
+
+
 
 class FigureList:
     def __init__(self):

@@ -1,0 +1,1 @@
+{"figures": [{"name": "a", "function": "x", "max": 100, "min": -100, "color": [96, 150, 67]}, {"name": "b", "function": "x^2 +x +23", "max": 100, "min": -100, "color": [221, 231, 49]}]}
