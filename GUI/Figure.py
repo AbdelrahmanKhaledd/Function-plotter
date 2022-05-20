@@ -42,12 +42,12 @@ class FigureList:
         del self.list[index]
 
     def Render(self, mainWindow, canvas:MplCanvas):
-        mainWindow.figure_list.clear()
+        mainWindow.figureWidgetList.clear()
         for figure in self.list:
             from GUI.FigureListWidgit import FigureListWidgit
             itemWidget = FigureListWidgit(figure)
-            itemList = QListWidgetItem(mainWindow.figure_list)
+            itemList = QListWidgetItem(mainWindow.figureWidgetList)
             itemList.setSizeHint(itemWidget.sizeHint())
-            mainWindow.figure_list.addItem(itemList)
-            mainWindow.figure_list.setItemWidget(itemList, itemWidget)
+            mainWindow.figureWidgetList.addItem(itemList)
+            mainWindow.figureWidgetList.setItemWidget(itemList, itemWidget)
         canvas.UpdateFigureList(self.list)

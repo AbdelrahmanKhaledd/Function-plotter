@@ -49,7 +49,6 @@ class Parser(object):
             right = self.Factor()
             if left == None or right == None:
                 raise Exception(f'Invalid syntax in {self.lexer.currentChar}')
-
             node = BinOp(left=left, op=token, right=right)
         return node
 

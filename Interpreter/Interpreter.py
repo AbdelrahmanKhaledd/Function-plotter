@@ -14,17 +14,3 @@ class Interpreter():
     def Interpret(self, x):
         return self.syntaxTree.Calc(self.syntaxTree.root, x)
 
-
-# if __name__ == '__main__':
-#     while True:
-#         text = input('eq ')
-#         interpreter = Interpreter(text)
-#         interpreter.syntaxTree.PrintNode(interpreter.syntaxTree.root)
-#         interpreter.syntaxTree.Optimaizing(interpreter.syntaxTree.root)
-#         interpreter.syntaxTree.PrintNode(interpreter.syntaxTree.root)
-#
-#         x = input('x =')
-#
-#         result = interpreter.interpret(x)
-#         print(result)
-#

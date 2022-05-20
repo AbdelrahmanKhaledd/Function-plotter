@@ -7,11 +7,20 @@ class NodeTypes(enum.Enum):
     BINARY = 3
 
 class Node:
+    """
+    Node of SyntaxTree
+    """
     def __init__(self, type):
         self.type:NodeTypes = type
 
     def Childs(self):
+        """
+        Get childrens of nodes(left, right,op)
+        :return: List of Childerns
+
+        """
         pass
+
     def __repr__(self):
         pass
 
@@ -84,11 +93,19 @@ class Var(Node):
         return str(self.value)
 
 class SyntaxTree:
+    """
+    SyntaxTree containing operations nodes
+    """
     def __init__(self, root:Node):
         self.root = root
 
     def Optimaizing(self):
+        """
+        Optmaizing sybtaxTree to run faster in calculation
+        :return: None
+        """
         self._optimaizing(self.root)
+
     def _optimaizing(self, node):
         #(true ,val)
         res =None
@@ -124,6 +141,7 @@ class SyntaxTree:
         return res
 
     def Calc(self, node, x):
+        """Return value of equation passsing x (our single variable)"""
         if node.type == NodeTypes.BINARY:
             if node.op.type == Tokens.PLUS:
                 return self.Calc(node.left, x) + self.Calc(node.right, x)
@@ -149,6 +167,20 @@ class SyntaxTree:
             return int(x)
 
     def PrintTree(self):
+        """
+        print synatxTree.
+        Ex:
+        ├── Token(Tokens.PLUS, '+')
+        │    ├── Token(Tokens.EXP, '^')
+        │    │    ├── x
+        │    │    └── 2
+        │    └── Token(Tokens.MUL, '*')
+        │        ├── 3
+        │        └── x
+        └── 23
+
+        :return:None
+        """
         self._printNode(self.root)
 
     def _printNode(self, node ,indent='',last=True):

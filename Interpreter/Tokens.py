@@ -4,6 +4,8 @@ class Tokens(enum.Enum):
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9
     )
 class Token(object):
+    """ Tokens types
+    """
     def __init__(self, type, value):
         self.type:Tokens = type
         self.value = value
