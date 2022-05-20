@@ -36,7 +36,7 @@ class Parser(object):
 
         elif token.type == Tokens.LPAREN:
             self.Take(Tokens.LPAREN)
-            node = self.expr()
+            node = self.Term()
             self.Take(Tokens.RPAREN)
             return node
 
@@ -47,8 +47,7 @@ class Parser(object):
             self.Take(Tokens.EXP)
             left = node
             right = self.Factor()
-            if left == None or right == None:
-                raise Exception(f'Invalid syntax in {self.lexer.currentChar}')
+
             node = BinOp(left=left, op=token, right=right)
         return node
 
@@ -63,8 +62,7 @@ class Parser(object):
                 self.Take(Tokens.DIV)
             left = node
             right = self.Prim()
-            if left == None or right == None:
-                raise Exception(f'Invalid syntax in {self.lexer.currentChar}')
+
             node = BinOp(left=left, op=token, right=right)
         return node
 
@@ -78,8 +76,7 @@ class Parser(object):
                 self.Take(Tokens.MINUS)
             left = node
             right = self.Term()
-            if left == None or right == None:
-                raise Exception(f'Invalid syntax in {self.lexer.currentChar}')
+
 
             node = BinOp(left=left, op=token, right=right)
         return node

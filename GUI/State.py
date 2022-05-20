@@ -15,7 +15,7 @@ class State:
 
     def Save(self):
         if  len(self.mainWindow.figureList.list) >0:
-            return 
+            return
         if self.currentFileName == None :
             fileName = self.SaveAs()
             if fileName != None:
